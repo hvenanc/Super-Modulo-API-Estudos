@@ -1,4 +1,4 @@
-from enuns import StatusPlanoEstudo
+from models.enuns import StatusPlanoEstudo
 
 
 class PlanoEstudo:
@@ -8,17 +8,17 @@ class PlanoEstudo:
         self.id = id
         self.disciplina = disciplina
         self.descricao = descricao
-        self.status = isinstance(status, StatusPlanoEstudo) if self.status == status else self.status = StatusPlanoEstudo(status)
+        self.status = status if isinstance(status, StatusPlanoEstudo) else StatusPlanoEstudo(status)
         self.data_inicio = data_inicio
         self.data_fim = data_fim
 
 
-    def to_dict(self, id):
+    def to_dict(self):
         return {
-            "id": str(id),
+            "id": self.id,
             "disciplina": self.disciplina,
             "descricao": self.descricao,
-            "status": self.status,
+            "status": self.status.value,
             "data_inicio": self.data_inicio,
             "data_fim": self.data_fim
         }
