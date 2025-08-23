@@ -9,4 +9,40 @@ service = PlanoEstudoService()
 @plano_estudo_bp.route("/", methods=["POST"])
 def criar():
     dados = request.json
-    return jsonify(service.criar(dados))
+    return jsonify(service.criar(dados)), 201
+
+
+@plano_estudo_bp.route("/<string:id>", methods=["PUT"])
+def editar(id):
+    dados = request.json
+    plano = service.listar_por_id(id)
+    if not plano:
+        return jsonify({"erro": "Plano de estudo não localizado"}), 404
+    
+    service.editar(id, dados)
+    return jsonify(plano), 200
+
+
+@plano_estudo_bp.route("/<string:id>", methods=["GET"])
+def listar_por_id(id):
+    plano = service.listar_por_id(id)
+    if not plano:
+        return jsonify({"erro": "Plano de estudo não localizado"}), 404
+    return jsonify(plano), 200
+
+
+@plano_estudo_bp.route("/", methods=["GET"])
+def listar():
+    planos = service.listar()
+    if not planos:
+        return jsonify({"erro": "Nenhum plano de estudo localizado"}), 404
+    return jsonify(planos), 200
+
+
+@plano_estudo_bp.route("/<string:id>", methods=["DELETE"])
+def deletar(id):
+    plano = service.deletar(id)
+    if not plano:
+        return jsonify({"erro": "Plano de estudo não localizado"}), 404
+    return ' ', 204
+
