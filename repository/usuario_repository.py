@@ -17,3 +17,7 @@ class UsuarioRepository:
     def listar_usuario_por_email(self, email):
         doc_ref = self.collection.where("email", "==", email).get()
         return doc_ref[0].to_dict() if doc_ref else None
+
+
+    def listar_usuario_por_id(self, id):
+        return self.collection.document(id)
