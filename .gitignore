@@ -10,6 +10,10 @@ instance/*
 ### Firebase ###
 serviceAccountKey.json
 
+###Front-end
+templates
+/templates
+
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
 __pycache__/

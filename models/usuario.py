@@ -1,3 +1,5 @@
+from werkzeug.security import check_password_hash
+
 class Usuario:
 
 
@@ -6,11 +8,26 @@ class Usuario:
         self.nome = nome
         self.email = email
         self.senha = senha
+        self.planos = None
 
 
-    def to_dict(self, id):
+    @staticmethod
+    def to_user(dict):
+        return Usuario(
+            id = dict["id"],
+            nome = dict["nome"],
+            email = dict["email"],
+            senha = dict["senha"],
+        )
+    
+
+    def check_hash_senha(self, senha_digitada):
+        return check_password_hash(self.senha, senha_digitada)
+
+
+    def to_dict(self):
         return {
-            "id": str(id),
+            "id": self.id,
             "nome": self.nome,
             "email": self.email,
             "senha": self.senha
