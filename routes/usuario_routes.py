@@ -19,6 +19,7 @@ def cadastrar():
 def login():
     dados = request.json
     usuario = service.autenticar(dados)
+    print(usuario)
     if not usuario:
         return jsonify({"erro": "Credenciais inválidas"}), 401
     

@@ -12,6 +12,8 @@ class Usuario:
 
     @staticmethod
     def to_user(dict):
+        if not dict:
+            return None
         return Usuario(
             id = dict["id"],
             nome = dict["nome"],
